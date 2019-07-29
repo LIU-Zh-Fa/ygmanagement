@@ -1,12 +1,21 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
 import App from './App';
-import * as serviceWorker from './serviceWorker';
-
-ReactDOM.render(<App />, document.getElementById('root'));
-
-// If you want your app to work offline and load faster, you can change
-// unregister() to register() below. Note this comes with some pitfalls.
-// Learn more about service workers: https://bit.ly/CRA-PWA
-serviceWorker.unregister();
+import store from './store'
+import {Provider} from 'react-redux'
+import {HashRouter as Router,Route,Switch} from 'react-router-dom'
+import {noLayoutRouteComponent} from "@router"
+import routeEach from '@utils/routeEach' 
+const noLayoutRoute = routeEach(noLayoutRouteComponent);
+ReactDOM.render(
+    <Provider store={store}>
+        <Router>
+            <Switch>
+                {noLayoutRoute}
+                <Route path="/" render={()=>{
+                    return <App/>
+                }}></Route>
+            </Switch>
+        </Router>
+    </Provider>
+    , document.getElementById('root'));
